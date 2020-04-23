@@ -122,6 +122,13 @@ trait AggregationOps {
                  fnReset: String): JavascriptAgg =
     JavascriptAgg(fields.toSeq, fnAggregate, fnCombine, fnReset, Option(name))
 
+  def hllAggregator(name: String, fieldName: String, lgK: Int, tgtHLLType: String): HLLAggregator =
+    HLLAggregator(fieldName, Option(name), lgK, tgtHLLType)
+  def hllAggregator(name: String, fieldName: Dim, lgK: Int, tgtHLLType: String)(
+      implicit classTag: ClassTag[Dim]
+  ): HLLAggregator =
+    HLLAggregator(fieldName.name, Option(name), lgK, tgtHLLType)
+
 }
 
 trait FilteringExpressionOps {

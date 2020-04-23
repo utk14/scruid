@@ -85,7 +85,7 @@ lazy val commonSettings: Seq[Setting[_]] = Seq(
     )
   ),
   crossScalaVersions in ThisBuild := Seq("2.11.12", "2.12.9", "2.13.1"),
-  scalaVersion in ThisBuild := "2.12.9",
+  scalaVersion in ThisBuild := "2.11.8",
   scalacOptions ++= Seq(Opts.compile.deprecation, "-Xlint", "-feature"),
   scalacOptions ++= unusedWarnings(scalaVersion.value),
   publishArtifact in Test := false,
@@ -98,7 +98,7 @@ lazy val root = (project in file("."))
   .settings(commonSettings)
   .settings(
     name := "scruid",
-    version := "2.3.0",
+    version := "2.3.1",
     resolvers += Resolver.sonatypeRepo("releases"),
     libraryDependencies ++= Seq(
       "com.typesafe"           % "config"                   % typesafeConfigVersion,
