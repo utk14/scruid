@@ -154,6 +154,9 @@ trait AggregationOps {
                  fnReset: String): JavascriptAgg =
     JavascriptAgg(fields.toSeq, fnAggregate, fnCombine, fnReset, Option(name))
 
+  def hllAggregator(dimName: String): HLLAggregator = HLLAggregator(dimName)
+  def hllAggregator(dim: Dim): HLLAggregator        = HLLAggregator(dim.name)
+
 }
 
 trait FilteringExpressionOps {

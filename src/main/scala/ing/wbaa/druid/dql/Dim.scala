@@ -567,6 +567,11 @@ case class Dim private[dql] (name: String,
   def hyperUnique: HyperUniqueAgg = AggregationOps.hyperUnique(this)
 
   /**
+    * Aggregation for unique computation of HLL Agregator
+    */
+  def hllAggregator: HLLAggregator = AggregationOps.hllAggregator(this)
+
+  /**
     * Wraps any given aggregator, but only aggregates the values
     * for which the given dimension filter matches, by using the in filter.
     *

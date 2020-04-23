@@ -405,3 +405,36 @@ final case class JavascriptAgg(
 
   override def getName: String = name.getOrElse(s"js_${fields.mkString("_")}")
 }
+
+final case class HLLAggregator(fieldName: String,
+                               name: Option[String] = None,
+                               lgK: Int = HLLAggregator.DefaultLgk,
+                               tgtHLLType: String = HLLAggregator.DefaulttgtHllType)
+    extends AggregationExpression {
+
+  override protected[dql] def build(): Aggregation =
+    HLLAggregation(
+      this.getName,
+      fieldName,
+      lgK,
+      tgtHLLType
+    )
+
+  override def alias(name: String): HLLAggregator = copy(name = Option(name))
+
+  def setLgk(value: Int): HLLAggregator = copy(lgK = value)
+
+  def setTgtHLLType(value: String): HLLAggregator = copy(tgtHLLType = value)
+
+  def set(lgK: Int = HLLAggregator.DefaultLgk,
+          tgtHLLType: String = HLLAggregator.DefaulttgtHllType): HLLAggregator =
+    copy(lgK = lgK, tgtHLLType = tgtHLLType)
+
+  override def getName: String = name.getOrElse(s"HLL_Aggregator_$fieldName")
+
+}
+
+object HLLAggregator {
+  final val DefaultLgk        = 12
+  final val DefaulttgtHllType = "HLL_4"
+}
